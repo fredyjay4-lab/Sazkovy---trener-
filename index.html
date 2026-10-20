@@ -1200,6 +1200,31 @@ function renderMatches(){
       const status =
         match.fixture?.status?.short || "NS";
 
+      /* DATUM A ČAS ZÁPASU */
+
+      let matchDate = "Datum neuvedeno";
+      let matchTime = "--:--";
+
+      if(match.fixture?.date){
+
+        const date =
+          new Date(match.fixture.date);
+
+        matchDate =
+          date.toLocaleDateString("cs-CZ", {
+            day:"numeric",
+            month:"numeric",
+            year:"numeric"
+          });
+
+        matchTime =
+          date.toLocaleTimeString("cs-CZ", {
+            hour:"2-digit",
+            minute:"2-digit"
+          });
+
+      }
+
       let score = "– : –";
 
       if(
@@ -1241,7 +1266,8 @@ function renderMatches(){
           <div class="match-bottom">
 
             <span class="status">
-              ${escapeHtml(status)}
+              🗓️ ${escapeHtml(matchDate)}
+              · 🕐 ${escapeHtml(matchTime)}
             </span>
 
             <span class="tag">
