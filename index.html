@@ -2,546 +2,742 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0b0d10">
-<title>Sázkový trenér</title>
+<title>Sázkový trenér PRO</title>
 
 <style>
 :root{
-  --bg:#0b0d10;
-  --card:#15181d;
-  --card2:#1b1f26;
-  --border:#292e36;
-  --text:#f2f4f7;
-  --muted:#9299a5;
-  --green:#19d98b;
-  --green2:#0fae70;
-  --red:#ff5364;
-  --yellow:#f0c94b;
+--bg:#0b0d10;
+--card:#15181d;
+--card2:#1b1f26;
+--border:#292e36;
+--text:#f2f4f7;
+--muted:#9299a5;
+--green:#19d98b;
+--green2:#0fae70;
+--red:#ff5364;
+--yellow:#f0c94b;
+--blue:#4da3ff;
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
+background:var(--bg);
+color:var(--text);
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh;
 }
 
-button,input,select{
-  font:inherit;
-}
+button,input,select{font:inherit}
 
-button{
-  cursor:pointer;
-}
+button{cursor:pointer}
 
 .app{
-  max-width:900px;
-  margin:auto;
-  padding-bottom:90px;
+max-width:950px;
+margin:auto;
+padding-bottom:90px;
 }
 
 header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(11,13,16,.96);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-  padding:16px 18px;
+position:sticky;
+top:0;
+z-index:20;
+background:rgba(11,13,16,.96);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);
+padding:14px 16px;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 .logo{
-  width:52px;
-  height:52px;
-  border-radius:17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#063b2a;
-  font-size:29px;
+width:50px;
+height:50px;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#063b2a;
+font-size:27px;
 }
 
 .brand h1{
-  font-size:20px;
-  margin-bottom:3px;
+font-size:19px;
+margin-bottom:3px;
 }
 
 .brand p{
-  color:var(--muted);
-  font-size:13px;
+font-size:12px;
+color:var(--muted);
 }
 
 .api-status{
-  margin-left:auto;
-  background:#252a32;
-  color:#aab1bc;
-  padding:9px 14px;
-  border-radius:22px;
-  font-size:12px;
-  white-space:nowrap;
+margin-left:auto;
+background:#252a32;
+color:#aab1bc;
+padding:8px 12px;
+border-radius:20px;
+font-size:11px;
+white-space:nowrap;
 }
 
 .api-status.on{
-  background:#073d2b;
-  color:var(--green);
+background:#073d2b;
+color:var(--green);
 }
 
 main{
-  padding:22px 18px;
+padding:20px 16px;
 }
 
-.screen{
-  display:none;
-}
+.screen{display:none}
 
-.screen.active{
-  display:block;
-}
+.screen.active{display:block}
 
 .hero{
-  background:linear-gradient(135deg,#0e2821,#101519);
-  border:1px solid #17664b;
-  border-radius:25px;
-  padding:27px 25px;
-  margin-bottom:25px;
+background:linear-gradient(135deg,#0e2821,#101519);
+border:1px solid #17664b;
+border-radius:25px;
+padding:25px 22px;
+margin-bottom:22px;
 }
 
 .hero h2{
-  font-size:30px;
-  margin-bottom:12px;
+font-size:28px;
+margin-bottom:10px;
 }
 
 .hero p{
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.6;
+color:var(--muted);
+font-size:15px;
+line-height:1.55;
 }
 
 .section-title{
-  color:var(--green);
-  font-size:15px;
-  letter-spacing:1px;
-  margin:25px 0 12px;
-  text-transform:uppercase;
+color:var(--green);
+font-size:14px;
+font-weight:bold;
+letter-spacing:1px;
+margin:24px 0 11px;
+text-transform:uppercase;
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:23px;
-  padding:20px;
-  margin-bottom:15px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:21px;
+padding:18px;
+margin-bottom:13px;
 }
 
-.modes{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.mode{
-  border:1px solid var(--border);
-  background:var(--card2);
-  color:var(--text);
-  border-radius:20px;
-  padding:18px 8px;
-  text-align:center;
-}
-
-.mode strong{
-  display:block;
-  font-size:17px;
-  margin-bottom:6px;
-}
-
-.mode span{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.mode.selected{
-  border-color:var(--green);
-  box-shadow:0 0 0 1px var(--green);
-  background:#0d2520;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
-.field label{
-  display:block;
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:8px;
-}
-
-input,select{
-  width:100%;
-  background:#101217;
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:15px;
-  outline:none;
-}
-
-input:focus,select:focus{
-  border-color:var(--green);
-}
-
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  border:0;
-  border-radius:15px;
-  padding:14px 18px;
-  color:white;
-  background:#252a32;
-}
-
-.btn-primary{
-  background:var(--green);
-  color:#06130e;
-  font-weight:bold;
-}
-
-.btn-danger{
-  background:#35181e;
-  color:#ff7080;
-}
-
-.btn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-.ticket-summary{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.summary{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-}
-
-.summary small{
-  color:var(--muted);
-  display:block;
-  margin-bottom:7px;
-}
-
-.summary strong{
-  font-size:20px;
-}
-
-.pick{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:19px;
-  margin-bottom:13px;
-}
-
-.pick-top{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.pick-number{
-  color:var(--green);
-  font-size:13px;
-  text-transform:uppercase;
-  margin-bottom:7px;
-}
-
-.pick h3{
-  font-size:18px;
-  line-height:1.35;
-}
-
-.pick-odd{
-  font-size:25px;
-  font-weight:bold;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
-}
-
-.tag{
-  background:#202630;
-  color:#aab1bc;
-  border-radius:13px;
-  padding:7px 10px;
-  font-size:12px;
-}
-
-.tag.green{
-  background:#083b2b;
-  color:var(--green);
-}
-
-.tag.yellow{
-  background:#3a341c;
-  color:var(--yellow);
-}
-
-.confidence{
-  height:7px;
-  background:#252b34;
-  border-radius:10px;
-  overflow:hidden;
-  margin-top:16px;
-}
-
-.confidence div{
-  height:100%;
-  background:var(--green);
-  border-radius:10px;
+.card h2,
+.card h3{
+margin-bottom:8px;
 }
 
 .pick-note{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-  margin-top:10px;
+color:var(--muted);
+font-size:13px;
+line-height:1.5;
 }
 
+.actions{
+display:flex;
+gap:9px;
+margin-top:16px;
+flex-wrap:wrap;
+}
+
+.btn{
+border:0;
+border-radius:14px;
+padding:13px 16px;
+color:white;
+background:#252a32;
+}
+
+.btn-primary{
+background:var(--green);
+color:#06130e;
+font-weight:bold;
+}
+
+.btn-danger{
+background:#35181e;
+color:#ff7080;
+}
+
+.btn-blue{
+background:#173452;
+color:#70b8ff;
+}
+
+.btn:disabled{
+opacity:.5;
+cursor:not-allowed;
+}
+
+/* SPORT */
+
+.sports{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.sport{
+background:var(--card2);
+border:1px solid var(--border);
+border-radius:19px;
+padding:18px;
+color:white;
+text-align:left;
+}
+
+.sport.selected{
+border-color:var(--green);
+box-shadow:0 0 0 1px var(--green);
+background:#0d2520;
+}
+
+.sport-icon{
+font-size:27px;
+margin-bottom:8px;
+}
+
+.sport strong{
+display:block;
+font-size:17px;
+margin-bottom:4px;
+}
+
+.sport span{
+font-size:12px;
+color:var(--muted);
+}
+
+/* MODES */
+
+.modes{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.mode{
+border:1px solid var(--border);
+background:var(--card2);
+color:var(--text);
+border-radius:18px;
+padding:16px 8px;
+text-align:center;
+}
+
+.mode strong{
+display:block;
+font-size:16px;
+margin-bottom:5px;
+}
+
+.mode span{
+color:var(--muted);
+font-size:11px;
+}
+
+.mode.selected{
+border-color:var(--green);
+box-shadow:0 0 0 1px var(--green);
+background:#0d2520;
+}
+
+/* FORM */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:13px;
+}
+
+.field label{
+display:block;
+color:var(--muted);
+font-size:13px;
+margin-bottom:7px;
+}
+
+input,select{
+width:100%;
+background:#101217;
+color:var(--text);
+border:1px solid var(--border);
+border-radius:14px;
+padding:13px;
+outline:none;
+}
+
+input:focus,select:focus{
+border-color:var(--green);
+}
+
+/* MATCHES */
+
 .match{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:21px;
-  padding:18px;
-  margin-bottom:12px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:21px;
+padding:17px;
+margin-bottom:11px;
+transition:.15s;
+}
+
+.match:hover{
+border-color:#3b424d;
 }
 
 .match-league{
-  color:var(--muted);
-  font-size:12px;
-  margin-bottom:12px;
-}
-
-.match-date{
-  display:inline-block;
-  background:#083b2b;
-  color:var(--green);
-  padding:7px 10px;
-  border-radius:12px;
-  font-size:12px;
-  margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+gap:10px;
+color:var(--muted);
+font-size:11px;
+margin-bottom:14px;
 }
 
 .match-row{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:12px;
+display:grid;
+grid-template-columns:1fr auto 1fr;
+align-items:center;
+gap:10px;
 }
 
 .team{
-  font-size:16px;
+font-size:15px;
+line-height:1.35;
 }
 
-.team:last-child{
-  text-align:right;
+.team:last-child{text-align:right}
+
+.score{
+font-size:19px;
+font-weight:bold;
+white-space:nowrap;
 }
 
-.vs{
-  color:var(--muted);
-  font-size:13px;
-  font-weight:bold;
+.match-time{
+font-size:12px;
+color:var(--yellow);
+margin-top:5px;
+text-align:center;
 }
 
 .match-bottom{
-  margin-top:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+margin-top:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
 }
 
 .status{
-  color:var(--green);
-  font-size:12px;
+color:var(--green);
+font-size:11px;
 }
 
+.clickable{
+cursor:pointer;
+}
+
+.tag{
+background:#202630;
+color:#aab1bc;
+border-radius:12px;
+padding:6px 9px;
+font-size:11px;
+display:inline-block;
+}
+
+.tag.green{
+background:#083b2b;
+color:var(--green);
+}
+
+.tag.yellow{
+background:#3a341c;
+color:var(--yellow);
+}
+
+.tag.blue{
+background:#142b43;
+color:#70b8ff;
+}
+
+/* FILTER */
+
+.filter-row{
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:3px;
+}
+
+.filter-row button{
+border:1px solid var(--border);
+background:var(--card2);
+color:var(--muted);
+padding:9px 13px;
+border-radius:15px;
+white-space:nowrap;
+}
+
+.filter-row button.active{
+border-color:var(--green);
+color:var(--green);
+}
+
+/* TICKET */
+
+.ticket-summary{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+margin-bottom:13px;
+}
+
+.summary{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:17px;
+padding:14px;
+}
+
+.summary small{
+color:var(--muted);
+display:block;
+font-size:10px;
+margin-bottom:6px;
+}
+
+.summary strong{
+font-size:18px;
+}
+
+.pick{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:21px;
+padding:18px;
+margin-bottom:12px;
+}
+
+.pick-top{
+display:flex;
+justify-content:space-between;
+gap:12px;
+}
+
+.pick-number{
+color:var(--green);
+font-size:11px;
+font-weight:bold;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.pick h3{
+font-size:16px;
+line-height:1.4;
+}
+
+.pick-odd{
+font-size:23px;
+font-weight:bold;
+white-space:nowrap;
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+margin-top:11px;
+}
+
+.confidence{
+height:7px;
+background:#252b34;
+border-radius:10px;
+overflow:hidden;
+margin-top:14px;
+}
+
+.confidence div{
+height:100%;
+background:var(--green);
+border-radius:10px;
+}
+
+.value-box{
+margin-top:12px;
+padding:11px;
+border-radius:14px;
+background:#10171a;
+border:1px solid #263b35;
+font-size:12px;
+line-height:1.5;
+}
+
+.value-good{
+color:var(--green);
+}
+
+.value-neutral{
+color:var(--yellow);
+}
+
+.value-bad{
+color:var(--red);
+}
+
+/* DETAIL */
+
+.detail-head{
+background:linear-gradient(135deg,#101c20,#15181d);
+border:1px solid var(--border);
+border-radius:23px;
+padding:20px;
+margin-bottom:13px;
+}
+
+.detail-teams{
+display:grid;
+grid-template-columns:1fr auto 1fr;
+align-items:center;
+gap:10px;
+}
+
+.detail-team{
+font-size:18px;
+font-weight:bold;
+}
+
+.detail-team:last-child{text-align:right}
+
+.detail-vs{
+text-align:center;
+color:var(--muted);
+}
+
+.detail-time{
+text-align:center;
+color:var(--yellow);
+font-size:13px;
+margin-top:9px;
+}
+
+.stat-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:9px;
+}
+
+.stat{
+background:var(--card2);
+border:1px solid var(--border);
+border-radius:15px;
+padding:13px;
+}
+
+.stat small{
+display:block;
+color:var(--muted);
+font-size:10px;
+margin-bottom:5px;
+}
+
+.stat strong{
+font-size:16px;
+}
+
+.compare{
+display:grid;
+grid-template-columns:1fr 70px 1fr;
+gap:7px;
+align-items:center;
+margin-bottom:9px;
+}
+
+.compare-name{
+font-size:12px;
+}
+
+.compare-name:last-child{text-align:right}
+
+.compare-bar{
+height:7px;
+background:#282e37;
+border-radius:10px;
+overflow:hidden;
+}
+
+.compare-bar div{
+height:100%;
+background:var(--green);
+}
+
+.compare-center{
+text-align:center;
+font-size:10px;
+color:var(--muted);
+}
+
+/* HISTORY */
+
 .history-item{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:10px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:18px;
+padding:16px;
+margin-bottom:9px;
 }
 
 .history-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:8px;
+display:flex;
+justify-content:space-between;
+gap:8px;
+margin-bottom:7px;
 }
 
 .history-date{
-  color:var(--muted);
-  font-size:12px;
+color:var(--muted);
+font-size:10px;
 }
 
-.api-box{
-  position:relative;
-}
+/* API */
 
 .api-info{
-  color:var(--muted);
-  line-height:1.5;
-  font-size:13px;
-  margin-bottom:20px;
+color:var(--muted);
+line-height:1.5;
+font-size:13px;
+margin-bottom:17px;
 }
 
 .password-wrap{
-  position:relative;
+position:relative;
 }
 
 .password-wrap input{
-  padding-right:50px;
+padding-right:50px;
 }
 
 .show-key{
-  position:absolute;
-  right:8px;
-  top:7px;
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  padding:9px;
+position:absolute;
+right:7px;
+top:6px;
+border:0;
+background:transparent;
+color:var(--muted);
+padding:8px;
 }
 
+/* EMPTY */
+
 .empty{
-  text-align:center;
-  color:var(--muted);
-  padding:35px 15px;
+text-align:center;
+color:var(--muted);
+padding:30px 12px;
 }
 
 .loader{
-  width:28px;
-  height:28px;
-  border:3px solid #303640;
-  border-top-color:var(--green);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:0 auto 14px;
+width:27px;
+height:27px;
+border:3px solid #303640;
+border-top-color:var(--green);
+border-radius:50%;
+animation:spin .8s linear infinite;
+margin:0 auto 13px;
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+to{transform:rotate(360deg)}
 }
 
+/* NAV */
+
 .bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:30;
-  background:rgba(14,16,20,.97);
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:center;
-  backdrop-filter:blur(12px);
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+z-index:30;
+background:rgba(14,16,20,.97);
+border-top:1px solid var(--border);
+display:flex;
+justify-content:center;
+backdrop-filter:blur(12px);
 }
 
 .nav-inner{
-  width:100%;
-  max-width:900px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
+width:100%;
+max-width:950px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
 }
 
 .nav-btn{
-  border:0;
-  background:transparent;
-  color:#858c97;
-  padding:13px 4px 10px;
+border:0;
+background:transparent;
+color:#858c97;
+padding:11px 3px 9px;
 }
 
 .nav-btn.active{
-  color:var(--green);
+color:var(--green);
 }
 
 .nav-icon{
-  display:block;
-  font-size:23px;
-  margin-bottom:3px;
+display:block;
+font-size:21px;
+margin-bottom:2px;
 }
 
 .nav-text{
-  font-size:11px;
+font-size:10px;
 }
+
+/* MOBILE */
 
 @media(max-width:650px){
 
-  .modes{
-    grid-template-columns:1fr;
-  }
+.modes{
+grid-template-columns:1fr;
+}
 
-  .grid{
-    grid-template-columns:1fr;
-  }
+.grid{
+grid-template-columns:1fr;
+}
 
-  .ticket-summary{
-    grid-template-columns:repeat(3,1fr);
-  }
+.hero h2{
+font-size:25px;
+}
 
-  .summary{
-    padding:12px 8px;
-  }
+.detail-teams{
+grid-template-columns:1fr;
+text-align:center;
+}
 
-  .summary strong{
-    font-size:17px;
-  }
+.detail-team:last-child{
+text-align:center;
+}
 
-  .hero h2{
-    font-size:27px;
-  }
+.compare{
+grid-template-columns:1fr 50px 1fr;
+}
 
-  .pick-top{
-    align-items:flex-start;
-  }
-
-  .pick-odd{
-    font-size:23px;
-  }
-
-  .team{
-    font-size:14px;
-  }
 }
 </style>
 </head>
@@ -551,20 +747,20 @@ input:focus,select:focus{
 <div class="app">
 
 <header>
-  <div class="brand">
+<div class="brand">
 
-    <div class="logo">🎯</div>
+<div class="logo">🎯</div>
 
-    <div>
-      <h1>SÁZKOVÝ TRENÉR</h1>
-      <p>Analýza zápasů a tikety</p>
-    </div>
+<div>
+<h1>SÁZKOVÝ TRENÉR PRO</h1>
+<p>Ověřená data • Fotbal • Hokej</p>
+</div>
 
-    <div id="apiStatus" class="api-status">
-      API OFF
-    </div>
+<div id="apiStatus" class="api-status">
+API OFF
+</div>
 
-  </div>
+</div>
 </header>
 
 <main>
@@ -573,60 +769,93 @@ input:focus,select:focus{
 
 <section id="home" class="screen active">
 
-  <div class="hero">
+<div class="hero">
 
-    <h2>Najdi lepší tip 🎯</h2>
+<h2>Pomocník pro rozhodování 🎯</h2>
 
-    <p>
-      Vyber režim, počet tipů a požadovaný kurz.
-      Trenér následně sestaví tiket podle dostupných
-      zápasů, které se ještě nezačaly hrát.
-    </p>
+<p>
+Pracuje se skutečnými daty ze sportovního API.
+Žádné vymyšlené výsledky ani falešné kurzy.
+U každého zápasu můžeš otevřít detailní analýzu.
+</p>
 
-  </div>
+</div>
 
-  <div class="section-title">
-    Rychlý přehled
-  </div>
+<div class="section-title">
+Sport
+</div>
 
-  <div class="card">
+<div class="sports">
 
-    <h3>⚽ Nadcházející zápasy</h3>
+<button id="sportFootball"
+class="sport selected"
+onclick="setSport('football')">
 
-    <p id="homeMatchInfo" class="pick-note">
-      Zatím nebyla načtena živá data.
-    </p>
+<div class="sport-icon">⚽</div>
+<strong>Fotbal</strong>
+<span>Evropa • ČR • svět</span>
 
-    <div class="actions">
+</button>
 
-      <button class="btn btn-primary"
-              onclick="loadMatches()">
-        🔄 Načíst zápasy
-      </button>
+<button id="sportHockey"
+class="sport"
+onclick="setSport('hockey')">
 
-    </div>
+<div class="sport-icon">🏒</div>
+<strong>Hokej</strong>
+<span>NHL • Extraliga • svět</span>
 
-  </div>
+</button>
 
-  <div class="card">
+</div>
 
-    <h3>🎯 Vytvořit tiket</h3>
+<div class="section-title">
+Zápasy
+</div>
 
-    <p class="pick-note">
-      Nastav si počet tipů, kurz a režim.
-      Trenér vybere vhodné možnosti z nadcházejících zápasů.
-    </p>
+<div class="card">
 
-    <div class="actions">
+<h3>📅 Nadcházející zápasy</h3>
 
-      <button class="btn btn-primary"
-              onclick="showScreen('ticket')">
-        🎫 Nastavit tiket
-      </button>
+<p id="homeMatchInfo" class="pick-note">
+Zatím nebyla načtena živá data.
+</p>
 
-    </div>
+<div class="actions">
 
-  </div>
+<button class="btn btn-primary"
+onclick="loadMatches()">
+🔄 Načíst zápasy
+</button>
+
+<button class="btn"
+onclick="showScreen('matches')">
+⚽ Zobrazit všechny
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>🎯 Generátor tiketu</h3>
+
+<p class="pick-note">
+Vyber počet tipů, režim a kurz. Generátor používá
+pouze zápasy, které má skutečně načtené.
+</p>
+
+<div class="actions">
+
+<button class="btn btn-primary"
+onclick="showScreen('ticket')">
+🎫 Nastavit tiket
+</button>
+
+</div>
+
+</div>
 
 </section>
 
@@ -635,149 +864,156 @@ input:focus,select:focus{
 
 <section id="ticket" class="screen">
 
-  <div class="section-title">
-    Najdi lepší tip 🎯
-  </div>
+<div class="section-title">
+Generátor tiketu
+</div>
 
-  <div class="card">
+<div class="card">
 
-    <p class="pick-note">
-      Vyber režim, počet tipů a rozsah kurzu.
-    </p>
+<div class="grid">
 
-  </div>
+<div class="field">
 
-  <div class="section-title">
-    Režim tiketu
-  </div>
+<label>Sport</label>
 
-  <div class="modes">
+<select id="ticketSport"
+onchange="setSport(this.value)">
 
-    <button id="modeSafe"
-            class="mode selected"
-            onclick="setMode('safe')">
+<option value="football">
+⚽ Fotbal
+</option>
 
-      <strong>🛡️ Bezpečný</strong>
-      <span>nižší riziko</span>
+<option value="hockey">
+🏒 Hokej
+</option>
 
-    </button>
+</select>
 
-    <button id="modeNormal"
-            class="mode"
-            onclick="setMode('normal')">
+</div>
 
-      <strong>⚖️ Standard</strong>
-      <span>poměr riziko / kurz</span>
+<div class="field">
 
-    </button>
+<label>Počet tipů</label>
 
-    <button id="modeBold"
-            class="mode"
-            onclick="setMode('bold')">
+<select id="tipCount">
 
-      <strong>🔥 Odvážný</strong>
-      <span>vyšší kurzy</span>
+<option value="1">1 tip</option>
+<option value="2">2 tipy</option>
+<option value="3" selected>3 tipy</option>
+<option value="4">4 tipy</option>
+<option value="5">5 tipů</option>
+<option value="6">6 tipů</option>
+<option value="7">7 tipů</option>
+<option value="8">8 tipů</option>
+<option value="9">9 tipů</option>
+<option value="10">10 tipů</option>
+<option value="11">11 tipů</option>
+<option value="12">12 tipů</option>
+<option value="13">13 tipů</option>
+<option value="14">14 tipů</option>
+<option value="15">15 tipů</option>
 
-    </button>
+</select>
 
-  </div>
+</div>
 
-  <div class="section-title">
-    Nastavení tiketu
-  </div>
+<div class="field">
 
-  <div class="card">
+<label>Min. kurz</label>
 
-    <div class="grid">
+<input id="minOdds"
+type="number"
+value="1.20"
+min="1.01"
+max="20"
+step="0.01">
 
-      <div class="field">
+</div>
 
-        <label>Počet tipů</label>
+<div class="field">
 
-        <select id="tipCount">
+<label>Max. kurz</label>
 
-          <option value="1">1 tip</option>
-          <option value="2">2 tipy</option>
-          <option value="3" selected>3 tipy</option>
-          <option value="4">4 tipy</option>
-          <option value="5">5 tipů</option>
-          <option value="6">6 tipů</option>
-          <option value="7">7 tipů</option>
-          <option value="8">8 tipů</option>
-          <option value="9">9 tipů</option>
-          <option value="10">10 tipů</option>
-          <option value="11">11 tipů</option>
-          <option value="12">12 tipů</option>
-          <option value="13">13 tipů</option>
-          <option value="14">14 tipů</option>
-          <option value="15">15 tipů</option>
+<input id="maxOdds"
+type="number"
+value="1.70"
+min="1.01"
+max="20"
+step="0.01">
 
-        </select>
+</div>
 
-      </div>
+<div class="field">
 
-      <div class="field">
+<label>Vklad Kč</label>
 
-        <label>Min. kurz tipu</label>
+<input id="stake"
+type="number"
+value="100"
+min="1"
+step="10">
 
-        <input id="minOdds"
-               type="number"
-               value="1.20"
-               min="1.01"
-               max="20"
-               step="0.01">
+</div>
 
-      </div>
+</div>
 
-      <div class="field">
+</div>
 
-        <label>Max. kurz tipu</label>
+<div class="section-title">
+Režim
+</div>
 
-        <input id="maxOdds"
-               type="number"
-               value="1.70"
-               min="1.01"
-               max="20"
-               step="0.01">
+<div class="modes">
 
-      </div>
+<button id="modeSafe"
+class="mode selected"
+onclick="setMode('safe')">
 
-      <div class="field">
+<strong>🛡️ Bezpečný</strong>
+<span>nižší riziko</span>
 
-        <label>Vklad Kč</label>
+</button>
 
-        <input id="stake"
-               type="number"
-               value="100"
-               min="1"
-               step="10">
+<button id="modeNormal"
+class="mode"
+onclick="setMode('normal')">
 
-      </div>
+<strong>⚖️ Standard</strong>
+<span>riziko / kurz</span>
 
-    </div>
+</button>
 
-    <div class="actions">
+<button id="modeBold"
+class="mode"
+onclick="setMode('bold')">
 
-      <button id="generateBtn"
-              class="btn btn-primary"
-              onclick="generateTicket()">
+<strong>🔥 Odvážný</strong>
+<span>vyšší kurz</span>
 
-        🎯 Vygenerovat tiket
+</button>
 
-      </button>
+</div>
 
-      <button class="btn"
-              onclick="loadMatches()">
+<div class="actions">
 
-        🔄 Načíst zápasy
+<button id="generateBtn"
+class="btn btn-primary"
+onclick="generateTicket()">
 
-      </button>
+🎯 Vygenerovat tiket
 
-    </div>
+</button>
 
-  </div>
+<button class="btn"
+onclick="loadMatches()">
 
-  <div id="ticketResult"></div>
+🔄 Obnovit data
+
+</button>
+
+</div>
+
+<div id="ticketResult"></div>
 
 </section>
 
@@ -786,37 +1022,67 @@ input:focus,select:focus{
 
 <section id="matches" class="screen">
 
-  <div class="section-title">
-    Nadcházející zápasy
-  </div>
+<div class="section-title">
+Zápasy
+</div>
 
-  <div class="card">
+<div class="card">
 
-    <p class="pick-note">
-      Zobrazují se pouze zápasy, které ještě nezačaly.
-      U každého zápasu je datum a čas začátku.
-    </p>
+<div class="filter-row">
 
-    <div class="actions">
+<button id="filterAll"
+class="active"
+onclick="setLeagueFilter('all')">
+Vše
+</button>
 
-      <button class="btn btn-primary"
-              onclick="loadMatches()">
+<button onclick="setLeagueFilter('popular')">
+⭐ Oblíbené
+</button>
 
-        🔄 Načíst živá data
+<button onclick="setLeagueFilter('czech')">
+🇨🇿 ČR
+</button>
 
-      </button>
+<button onclick="setLeagueFilter('nhl')">
+🏒 NHL
+</button>
 
-    </div>
+</div>
 
-  </div>
+<div class="actions">
 
-  <div id="matchesList">
+<button class="btn btn-primary"
+onclick="loadMatches()">
+🔄 Načíst
+</button>
 
-    <div class="empty">
-      Zatím nejsou načtené žádné zápasy.
-    </div>
+</div>
 
-  </div>
+</div>
+
+<div id="matchesList">
+
+<div class="empty">
+Zatím nejsou načtené žádné zápasy.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DETAIL -->
+
+<section id="detail" class="screen">
+
+<div id="detailContent">
+
+<div class="empty">
+Vyber zápas.
+</div>
+
+</div>
 
 </section>
 
@@ -825,28 +1091,28 @@ input:focus,select:focus{
 
 <section id="history" class="screen">
 
-  <div class="section-title">
-    Historie
-  </div>
+<div class="section-title">
+Historie
+</div>
 
-  <div id="historyList">
+<div id="historyList">
 
-    <div class="empty">
-      Zde se budou ukládat vytvořené tikety.
-    </div>
+<div class="empty">
+Zde se budou ukládat vytvořené tikety.
+</div>
 
-  </div>
+</div>
 
-  <div class="actions">
+<div class="actions">
 
-    <button class="btn btn-danger"
-            onclick="clearHistory()">
+<button class="btn btn-danger"
+onclick="clearHistory()">
 
-      🗑️ Smazat historii
+🗑️ Smazat historii
 
-    </button>
+</button>
 
-  </div>
+</div>
 
 </section>
 
@@ -855,74 +1121,97 @@ input:focus,select:focus{
 
 <section id="settings" class="screen">
 
-  <div class="section-title">
-    Nastavení
-  </div>
+<div class="section-title">
+Nastavení API
+</div>
 
-  <div class="card api-box">
+<div class="card">
 
-    <h2>⚙️ API-Football</h2>
+<h2>⚙️ API-Sports</h2>
 
-    <p class="api-info">
+<p class="api-info">
 
-      API klíč se uloží pouze do tohoto zařízení.
-      Nevkládáme ho přímo do zdrojového kódu.
+Aplikace používá API-Sports.
+Fotbal používá API-Football a hokej API-Hockey.
+API klíč zůstává uložený pouze v tomto zařízení.
 
-    </p>
+</p>
 
-    <div class="field">
+<div class="field">
 
-      <label>API Key</label>
+<label>API Key</label>
 
-      <div class="password-wrap">
+<div class="password-wrap">
 
-        <input id="apiKey"
-               type="password"
-               placeholder="Vlož svůj API-Football klíč">
+<input id="apiKey"
+type="password"
+placeholder="Vlož API-Sports klíč">
 
-        <button class="show-key"
-                onclick="toggleKey()">
+<button class="show-key"
+onclick="toggleKey()">
+👁️
+</button>
 
-          👁️
+</div>
 
-        </button>
+</div>
 
-      </div>
+<div class="actions">
 
-    </div>
+<button class="btn btn-primary"
+onclick="saveApiKey()">
+💾 Uložit API klíč
+</button>
 
-    <div class="actions">
+<button class="btn btn-danger"
+onclick="removeApiKey()">
+🗑️ Smazat
+</button>
 
-      <button class="btn btn-primary"
-              onclick="saveApiKey()">
+</div>
 
-        💾 Uložit API klíč
+</div>
 
-      </button>
 
-      <button class="btn btn-danger"
-              onclick="removeApiKey()">
+<div class="card">
 
-        🗑️ Smazat
+<h3>🔎 Dostupní bookmakeři</h3>
 
-      </button>
+<p id="bookmakerInfo"
+class="pick-note">
 
-    </div>
+Zatím nebyli načteni.
 
-  </div>
+</p>
 
-  <div class="card">
+<div class="actions">
 
-    <h2>ℹ️ Stav připojení</h2>
+<button class="btn btn-blue"
+onclick="loadBookmakers()">
 
-    <p id="connectionInfo"
-       class="pick-note">
+🔎 Ověřit sázkovky
 
-      API klíč není nastaven.
+</button>
 
-    </p>
+</div>
 
-  </div>
+<div id="bookmakerList"></div>
+
+</div>
+
+
+<div class="card">
+
+<h3>📊 Stav připojení</h3>
+
+<p id="connectionInfo"
+class="pick-note">
+
+API klíč není nastaven.
+
+</p>
+
+</div>
 
 </section>
 
@@ -935,54 +1224,54 @@ input:focus,select:focus{
 
 <nav class="bottom-nav">
 
-  <div class="nav-inner">
+<div class="nav-inner">
 
-    <button class="nav-btn active"
-            data-screen="home"
-            onclick="showScreen('home')">
+<button class="nav-btn active"
+data-screen="home"
+onclick="showScreen('home')">
 
-      <span class="nav-icon">🏠</span>
-      <span class="nav-text">Domů</span>
+<span class="nav-icon">🏠</span>
+<span class="nav-text">Domů</span>
 
-    </button>
+</button>
 
-    <button class="nav-btn"
-            data-screen="ticket"
-            onclick="showScreen('ticket')">
+<button class="nav-btn"
+data-screen="ticket"
+onclick="showScreen('ticket')">
 
-      <span class="nav-icon">🎯</span>
-      <span class="nav-text">Tiket</span>
+<span class="nav-icon">🎯</span>
+<span class="nav-text">Tiket</span>
 
-    </button>
+</button>
 
-    <button class="nav-btn"
-            data-screen="matches"
-            onclick="showScreen('matches')">
+<button class="nav-btn"
+data-screen="matches"
+onclick="showScreen('matches')">
 
-      <span class="nav-icon">⚽</span>
-      <span class="nav-text">Zápasy</span>
+<span class="nav-icon">⚽</span>
+<span class="nav-text">Zápasy</span>
 
-    </button>
+</button>
 
-    <button class="nav-btn"
-            data-screen="history"
-            onclick="showScreen('history')">
+<button class="nav-btn"
+data-screen="history"
+onclick="showScreen('history')">
 
-      <span class="nav-icon">📊</span>
-      <span class="nav-text">Historie</span>
+<span class="nav-icon">📊</span>
+<span class="nav-text">Historie</span>
 
-    </button>
+</button>
 
-    <button class="nav-btn"
-            data-screen="settings"
-            onclick="showScreen('settings')">
+<button class="nav-btn"
+data-screen="settings"
+onclick="showScreen('settings')">
 
-      <span class="nav-icon">⚙️</span>
-      <span class="nav-text">Nastavení</span>
+<span class="nav-icon">⚙️</span>
+<span class="nav-text">Nastavení</span>
 
-    </button>
+</button>
 
-  </div>
+</div>
 
 </nav>
 
@@ -990,14 +1279,220 @@ input:focus,select:focus{
 <script>
 
 /* =====================================================
-   ZÁKLADNÍ NASTAVENÍ
+   ZÁKLAD
    ===================================================== */
 
-const API_URL = "https://v3.football.api-sports.io";
+const FOOTBALL_API =
+"https://v3.football.api-sports.io";
+
+const HOCKEY_API =
+"https://v1.hockey.api-sports.io";
+
+let currentSport = "football";
 
 let currentMode = "safe";
+
 let matches = [];
+
 let currentTicket = [];
+
+let leagueFilter = "all";
+
+
+/* =====================================================
+   API KLÍČ
+   ===================================================== */
+
+function getApiKey(){
+
+return localStorage.getItem("sports_api_key") || "";
+
+}
+
+
+function saveApiKey(){
+
+const input =
+document.getElementById("apiKey");
+
+const key =
+input.value.trim();
+
+if(!key){
+
+alert("Vlož API klíč.");
+
+return;
+
+}
+
+localStorage.setItem(
+"sports_api_key",
+key
+);
+
+updateApiStatus();
+
+document.getElementById(
+"connectionInfo"
+).textContent =
+"✅ API klíč je uložený.";
+
+alert("API klíč uložen.");
+
+}
+
+
+function removeApiKey(){
+
+localStorage.removeItem(
+"sports_api_key"
+);
+
+document.getElementById(
+"apiKey"
+).value="";
+
+updateApiStatus();
+
+document.getElementById(
+"connectionInfo"
+).textContent =
+"API klíč byl odstraněn.";
+
+}
+
+
+function toggleKey(){
+
+const input =
+document.getElementById("apiKey");
+
+input.type =
+input.type === "password"
+? "text"
+: "password";
+
+}
+
+
+function updateApiStatus(){
+
+const status =
+document.getElementById("apiStatus");
+
+if(getApiKey()){
+
+status.textContent="API ON";
+
+status.classList.add("on");
+
+}else{
+
+status.textContent="API OFF";
+
+status.classList.remove("on");
+
+}
+
+}
+
+
+/* =====================================================
+   API REQUEST
+   ===================================================== */
+
+async function apiRequest(
+base,
+endpoint
+){
+
+const key=getApiKey();
+
+if(!key){
+
+throw new Error(
+"Nejdříve vlož API klíč v Nastavení."
+);
+
+}
+
+const response =
+await fetch(
+base + endpoint,
+{
+method:"GET",
+headers:{
+"x-apisports-key":key,
+"Accept":"application/json"
+}
+}
+);
+
+if(!response.ok){
+
+throw new Error(
+"API chyba HTTP " +
+response.status
+);
+
+}
+
+const data =
+await response.json();
+
+if(
+data.errors &&
+Object.keys(data.errors).length
+){
+
+throw new Error(
+JSON.stringify(data.errors)
+);
+
+}
+
+return data;
+
+}
+
+
+/* =====================================================
+   SPORT
+   ===================================================== */
+
+function setSport(sport){
+
+currentSport=sport;
+
+document.getElementById(
+"sportFootball"
+).classList.toggle(
+"selected",
+sport==="football"
+);
+
+document.getElementById(
+"sportHockey"
+).classList.toggle(
+"selected",
+sport==="hockey"
+);
+
+document.getElementById(
+"ticketSport"
+).value=sport;
+
+matches=[];
+
+document.getElementById(
+"homeMatchInfo"
+).textContent =
+sport==="football"
+? "Fotbal je vybraný. Načti zápasy."
+: "Hokej je vybraný. Načti zápasy.";
+
+}
 
 
 /* =====================================================
@@ -1006,27 +1501,37 @@ let currentTicket = [];
 
 function showScreen(screen){
 
-  document.querySelectorAll(".screen").forEach(el=>{
-    el.classList.remove("active");
-  });
+document
+.querySelectorAll(".screen")
+.forEach(el=>{
+el.classList.remove("active");
+});
 
-  const target = document.getElementById(screen);
+const target =
+document.getElementById(screen);
 
-  if(target){
-    target.classList.add("active");
-  }
+if(target){
 
-  document.querySelectorAll(".nav-btn").forEach(el=>{
-    el.classList.toggle(
-      "active",
-      el.dataset.screen === screen
-    );
-  });
+target.classList.add("active");
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+}
+
+document
+.querySelectorAll(".nav-btn")
+.forEach(el=>{
+
+el.classList.toggle(
+"active",
+el.dataset.screen===screen
+);
+
+});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
 }
 
 
@@ -1036,415 +1541,378 @@ function showScreen(screen){
 
 function setMode(mode){
 
-  currentMode = mode;
+currentMode=mode;
 
-  document.querySelectorAll(".mode").forEach(el=>{
-    el.classList.remove("selected");
-  });
+document
+.querySelectorAll(".mode")
+.forEach(el=>{
+el.classList.remove("selected");
+});
 
-  if(mode === "safe"){
+if(mode==="safe"){
 
-    document.getElementById("modeSafe")
-      .classList.add("selected");
+document
+.getElementById("modeSafe")
+.classList.add("selected");
 
-    document.getElementById("minOdds").value = "1.20";
-    document.getElementById("maxOdds").value = "1.70";
-  }
+document.getElementById(
+"minOdds"
+).value="1.20";
 
-  if(mode === "normal"){
+document.getElementById(
+"maxOdds"
+).value="1.70";
 
-    document.getElementById("modeNormal")
-      .classList.add("selected");
+}
 
-    document.getElementById("minOdds").value = "1.35";
-    document.getElementById("maxOdds").value = "2.10";
-  }
+if(mode==="normal"){
 
-  if(mode === "bold"){
+document
+.getElementById("modeNormal")
+.classList.add("selected");
 
-    document.getElementById("modeBold")
-      .classList.add("selected");
+document.getElementById(
+"minOdds"
+).value="1.35";
 
-    document.getElementById("minOdds").value = "1.70";
-    document.getElementById("maxOdds").value = "4.00";
-  }
+document.getElementById(
+"maxOdds"
+).value="2.10";
+
+}
+
+if(mode==="bold"){
+
+document
+.getElementById("modeBold")
+.classList.add("selected");
+
+document.getElementById(
+"minOdds"
+).value="1.70";
+
+document.getElementById(
+"maxOdds"
+).value="4.00";
+
+}
+
 }
 
 
 /* =====================================================
-   API KLÍČ
-   ===================================================== */
-
-function getApiKey(){
-
-  return localStorage.getItem("football_api_key") || "";
-
-}
-
-
-function saveApiKey(){
-
-  const key =
-    document
-      .getElementById("apiKey")
-      .value
-      .trim();
-
-  if(!key){
-
-    alert("Vlož API klíč.");
-
-    return;
-  }
-
-  localStorage.setItem(
-    "football_api_key",
-    key
-  );
-
-  updateApiStatus();
-
-  document
-    .getElementById("connectionInfo")
-    .innerHTML =
-    "✅ API klíč je uložený. Můžeš načíst živá data.";
-
-  alert("API klíč uložen.");
-}
-
-
-function removeApiKey(){
-
-  localStorage.removeItem(
-    "football_api_key"
-  );
-
-  document.getElementById("apiKey").value = "";
-
-  updateApiStatus();
-
-  document
-    .getElementById("connectionInfo")
-    .innerHTML =
-    "API klíč byl odstraněn.";
-}
-
-
-function toggleKey(){
-
-  const input =
-    document.getElementById("apiKey");
-
-  input.type =
-    input.type === "password"
-      ? "text"
-      : "password";
-}
-
-
-function updateApiStatus(){
-
-  const status =
-    document.getElementById("apiStatus");
-
-  if(getApiKey()){
-
-    status.textContent = "API ON";
-
-    status.classList.add("on");
-
-  }else{
-
-    status.textContent = "API OFF";
-
-    status.classList.remove("on");
-
-  }
-}
-
-
-/* =====================================================
-   API REQUEST
-   ===================================================== */
-
-async function apiRequest(endpoint){
-
-  const key = getApiKey();
-
-  if(!key){
-
-    throw new Error(
-      "Nejdříve vlož API klíč v Nastavení."
-    );
-  }
-
-  const response =
-    await fetch(
-      API_URL + endpoint,
-      {
-        method:"GET",
-
-        headers:{
-          "x-apisports-key":key
-        }
-      }
-    );
-
-  if(!response.ok){
-
-    throw new Error(
-      "API chyba: HTTP " +
-      response.status
-    );
-  }
-
-  const data =
-    await response.json();
-
-  if(
-    data.errors &&
-    Object.keys(data.errors).length
-  ){
-
-    throw new Error(
-      JSON.stringify(data.errors)
-    );
-  }
-
-  return data;
-}
-
-
-/* =====================================================
-   FORMÁT DATUMU A ČASU
-   ===================================================== */
-
-function formatMatchDate(dateString){
-
-  if(!dateString){
-    return "Datum není dostupné";
-  }
-
-  const date =
-    new Date(dateString);
-
-  if(isNaN(date.getTime())){
-    return "Datum není dostupné";
-  }
-
-  return date.toLocaleDateString(
-    "cs-CZ",
-    {
-      day:"2-digit",
-      month:"2-digit",
-      year:"numeric"
-    }
-  );
-}
-
-
-function formatMatchTime(dateString){
-
-  if(!dateString){
-    return "--:--";
-  }
-
-  const date =
-    new Date(dateString);
-
-  if(isNaN(date.getTime())){
-    return "--:--";
-  }
-
-  return date.toLocaleTimeString(
-    "cs-CZ",
-    {
-      hour:"2-digit",
-      minute:"2-digit"
-    }
-  );
-}
-
-
-function formatFullMatchDate(dateString){
-
-  return (
-    formatMatchDate(dateString) +
-    " v " +
-    formatMatchTime(dateString)
-  );
-}
-
-
-/* =====================================================
-   NAČTENÍ NADCHÁZEJÍCÍCH ZÁPASŮ
+   NAČTENÍ ZÁPASŮ
    ===================================================== */
 
 async function loadMatches(){
 
-  if(!getApiKey()){
+if(!getApiKey()){
 
-    showScreen("settings");
+showScreen("settings");
 
-    alert(
-      "Nejdříve vlož API-Football klíč."
-    );
+alert(
+"Nejdříve vlož API klíč."
+);
 
-    return;
-  }
+return;
 
-  const list =
-    document.getElementById("matchesList");
+}
 
-  list.innerHTML = `
-    <div class="empty">
-      <div class="loader"></div>
-      Načítám nadcházející zápasy...
-    </div>
-  `;
+const list =
+document.getElementById(
+"matchesList"
+);
 
-  try{
+list.innerHTML=`
 
-    /*
-      Používáme datumové rozmezí místo
-      status=NS + dnešního data.
+<div class="empty">
 
-      Díky tomu se zobrazí také budoucí
-      zápasy v následujících dnech.
-    */
+<div class="loader"></div>
 
-    const now =
-      new Date();
+Načítám ${currentSport==="football"
+?"fotbalové"
+:"hokejové"} zápasy...
 
-    const startDate =
-      new Date(now);
+</div>
 
-    const endDate =
-      new Date(now);
+`;
 
-    endDate.setDate(
-      endDate.getDate() + 3
-    );
+try{
 
-    const from =
-      startDate
-        .toISOString()
-        .slice(0,10);
+if(currentSport==="football"){
 
-    const to =
-      endDate
-        .toISOString()
-        .slice(0,10);
+await loadFootballMatches();
 
-    /*
-      API-Football umí načíst zápasy
-      v daném období.
-    */
+}else{
 
-    const data =
-      await apiRequest(
-        "/fixtures?from=" +
-        from +
-        "&to=" +
-        to
-      );
+await loadHockeyMatches();
 
-    const allMatches =
-      Array.isArray(data.response)
-        ? data.response
-        : [];
+}
 
-    /*
-      Necháme pouze zápasy, které ještě
-      nezačaly.
-    */
+showScreen("matches");
 
-    const nowTimestamp =
-      Date.now();
+}catch(error){
 
-    matches =
-      allMatches
-        .filter(match=>{
+list.innerHTML=`
 
-          const date =
-            match.fixture?.date;
+<div class="card">
 
-          if(!date){
-            return false;
-          }
+<h3>❌ Chyba načítání</h3>
 
-          const timestamp =
-            new Date(date).getTime();
+<p class="pick-note">
+${escapeHtml(error.message)}
+</p>
 
-          if(
-            isNaN(timestamp) ||
-            timestamp <= nowTimestamp
-          ){
-            return false;
-          }
+</div>
 
-          const status =
-            match.fixture?.status?.short;
+`;
 
-          /*
-            NS = Not Started
-            TBD = To Be Determined
-            PST = Postponed
-          */
+}
 
-          return (
-            status === "NS" ||
-            status === "TBD" ||
-            status === "PST"
-          );
+}
 
-        })
-        .sort((a,b)=>{
 
-          return (
-            new Date(a.fixture.date) -
-            new Date(b.fixture.date)
-          );
+/* =====================================================
+   FOTBAL
+   ===================================================== */
 
-        });
+async function loadFootballMatches(){
 
-    renderMatches();
+const today =
+new Date()
+.toISOString()
+.slice(0,10);
 
-    document
-      .getElementById("homeMatchInfo")
-      .textContent =
-      "Načteno " +
-      matches.length +
-      " nadcházejících zápasů.";
+const data =
+await apiRequest(
+FOOTBALL_API,
+"/fixtures?date="+
+today+
+"&timezone=Europe%2FPrague"
+);
 
-    document
-      .getElementById("connectionInfo")
-      .innerHTML =
-      "✅ API funguje. Načteno " +
-      matches.length +
-      " nadcházejících zápasů.";
+matches =
+Array.isArray(data.response)
+? data.response.filter(m=>
+m.fixture &&
+m.fixture.status &&
+(
+m.fixture.status.short==="NS" ||
+m.fixture.status.short==="TBD" ||
+m.fixture.status.short==="PST"
+)
+)
+:[];
 
-    updateApiStatus();
+renderMatches();
 
-  }catch(error){
+document.getElementById(
+"homeMatchInfo"
+).textContent =
+"Načteno "+
+matches.length+
+" nadcházejících fotbalových zápasů.";
 
-    list.innerHTML = `
+}
 
-      <div class="card">
 
-        <h3>
-          ❌ Nepodařilo se načíst data
-        </h3>
+/* =====================================================
+   HOKEJ
+   ===================================================== */
 
-        <p class="pick-note">
-          ${escapeHtml(error.message)}
-        </p>
+async function loadHockeyMatches(){
 
-      </div>
+const today =
+new Date()
+.toISOString()
+.slice(0,10);
 
-    `;
+const data =
+await apiRequest(
+HOCKEY_API,
+"/games?date="+
+today
+);
 
-  }
+matches =
+Array.isArray(data.response)
+? data.response.filter(g=>
+g.game &&
+g.teams &&
+g.status &&
+(
+String(g.status.short||"").toUpperCase()==="NS" ||
+String(g.status.short||"").toUpperCase()==="TBD"
+)
+)
+:[];
+
+renderMatches();
+
+document.getElementById(
+"homeMatchInfo"
+).textContent =
+"Načteno "+
+matches.length+
+" nadcházejících hokejových zápasů.";
+
+}
+
+
+/* =====================================================
+   FILTRY
+   ===================================================== */
+
+function setLeagueFilter(filter){
+
+leagueFilter=filter;
+
+document
+.querySelectorAll(".filter-row button")
+.forEach(b=>{
+b.classList.remove("active");
+});
+
+if(filter==="all")
+document.getElementById(
+"filterAll"
+).classList.add("active");
+
+renderMatches();
+
+}
+
+
+/* =====================================================
+   NORMALIZACE ZÁPASU
+   ===================================================== */
+
+function normalizeMatch(match){
+
+if(currentSport==="football"){
+
+return{
+
+id:match.fixture?.id,
+
+home:match.teams?.home?.name || "Domácí",
+
+away:match.teams?.away?.name || "Hosté",
+
+league:match.league?.name || "Fotbal",
+
+country:match.league?.country || "",
+
+timestamp:
+match.fixture?.timestamp || null,
+
+date:
+match.fixture?.date || null,
+
+status:
+match.fixture?.status?.short || "NS",
+
+sport:"football",
+
+raw:match
+
+};
+
+}
+
+return{
+
+id:match.id || match.game?.id,
+
+home:
+match.teams?.home?.name ||
+match.game?.teams?.home?.name ||
+"Domácí",
+
+away:
+match.teams?.away?.name ||
+match.game?.teams?.away?.name ||
+"Hosté",
+
+league:
+match.league?.name ||
+match.game?.league?.name ||
+"Hokej",
+
+country:
+match.country?.name ||
+match.league?.country ||
+"",
+
+timestamp:
+match.timestamp ||
+match.game?.timestamp ||
+null,
+
+date:
+match.date ||
+match.game?.date ||
+null,
+
+status:
+match.status?.short ||
+match.game?.status?.short ||
+"NS",
+
+sport:"hockey",
+
+raw:match
+
+};
+
+}
+
+
+/* =====================================================
+   DATUM / ČAS
+   ===================================================== */
+
+function formatDateTime(match){
+
+const n=
+normalizeMatch(match);
+
+let date;
+
+if(n.timestamp){
+
+date=
+new Date(n.timestamp*1000);
+
+}else if(n.date){
+
+date=
+new Date(n.date);
+
+}else{
+
+return "Čas není k dispozici";
+
+}
+
+if(isNaN(date.getTime())){
+
+return "Čas není k dispozici";
+
+}
+
+return date.toLocaleString(
+"cs-CZ",
+{
+timeZone:"Europe/Prague",
+day:"2-digit",
+month:"2-digit",
+year:"numeric",
+hour:"2-digit",
+minute:"2-digit"
+}
+);
+
 }
 
 
@@ -1454,666 +1922,1719 @@ async function loadMatches(){
 
 function renderMatches(){
 
-  const list =
-    document.getElementById("matchesList");
+const list =
+document.getElementById(
+"matchesList"
+);
 
-  if(!matches.length){
+let visible=
+matches.slice();
 
-    list.innerHTML = `
+if(leagueFilter==="nhl"){
 
-      <div class="empty">
+visible=visible.filter(m=>
+normalizeMatch(m)
+.league
+.toLowerCase()
+.includes("nhl")
+);
 
-        😕 Pro vybrané období nebyly
-        nalezeny žádné nadcházející zápasy.
+}
 
-        <br><br>
+if(leagueFilter==="czech"){
 
-        Zkus načíst data znovu později.
+visible=visible.filter(m=>{
 
-      </div>
+const n=normalizeMatch(m);
 
-    `;
+return(
+n.country
+.toLowerCase()
+.includes("czech") ||
+n.league
+.toLowerCase()
+.includes("extraliga") ||
+n.league
+.toLowerCase()
+.includes("chance liga")
+);
 
-    return;
-  }
+});
 
-  list.innerHTML =
-    matches
-      .slice(0,100)
-      .map((match,index)=>{
+}
 
-        const home =
-          match.teams?.home?.name ||
-          "Domácí";
+if(leagueFilter==="popular"){
 
-        const away =
-          match.teams?.away?.name ||
-          "Hosté";
+visible=visible.filter(m=>{
 
-        const league =
-          match.league?.name ||
-          "Fotbal";
+const n=normalizeMatch(m);
 
-        const country =
-          match.league?.country ||
-          "";
+const text=
+(
+n.league+" "+
+n.country
+).toLowerCase();
 
-        const status =
-          match.fixture?.status?.short ||
-          "NS";
+return[
+"premier league",
+"la liga",
+"serie a",
+"bundesliga",
+"ligue 1",
+"champions league",
+"nhl",
+"extraliga",
+"chance liga"
+]
+.some(x=>text.includes(x));
 
-        const date =
-          match.fixture?.date;
+});
 
-        const formattedDate =
-          formatMatchDate(date);
+}
 
-        const formattedTime =
-          formatMatchTime(date);
+if(!visible.length){
 
-        return `
+list.innerHTML=`
 
-          <div class="match">
+<div class="empty">
 
-            <div class="match-league">
+Žádné zápasy podle tohoto filtru.
 
-              🏆 ${escapeHtml(league)}
+</div>
 
-              ${
-                country
-                  ? " · " +
-                    escapeHtml(country)
-                  : ""
-              }
+`;
 
-            </div>
+return;
 
-            <div class="match-date">
+}
 
-              📅 ${formattedDate}
-              &nbsp;&nbsp;
-              🕐 ${formattedTime}
+list.innerHTML=
+visible
+.slice(0,100)
+.map((match,index)=>{
 
-            </div>
+const n=
+normalizeMatch(match);
 
-            <div class="match-row">
+return`
 
-              <div class="team">
+<div class="match clickable"
+onclick="openMatch(${index})">
 
-                ${escapeHtml(home)}
+<div class="match-league">
 
-              </div>
+<span>
+${escapeHtml(n.league)}
+</span>
 
-              <div class="vs">
+<span>
+${n.sport==="football"?"⚽":"🏒"}
+</span>
 
-                VS
+</div>
 
-              </div>
+<div class="match-row">
 
-              <div class="team">
+<div class="team">
+${escapeHtml(n.home)}
+</div>
 
-                ${escapeHtml(away)}
+<div>
 
-              </div>
+<div class="score">
+VS
+</div>
 
-            </div>
+<div class="match-time">
+${escapeHtml(formatDateTime(match))}
+</div>
 
-            <div class="match-bottom">
+</div>
 
-              <span class="status">
+<div class="team">
+${escapeHtml(n.away)}
+</div>
 
-                🟢 ${
-                  status === "PST"
-                    ? "Odloženo"
-                    : "Čeká na začátek"
-                }
+</div>
 
-              </span>
+<div class="match-bottom">
 
-              <span class="tag">
+<span class="status">
+${n.status==="NS"
+?"NAPLÁNOVÁNO"
+:"PŘED ZÁPASEM"}
+</span>
 
-                ID ${
-                  match.fixture?.id || "-"
-                }
+<span class="tag blue">
+🔎 Detail
+</span>
 
-              </span>
+</div>
 
-            </div>
+</div>
 
-          </div>
+`;
 
-        `;
+})
+.join("");
 
-      })
-      .join("");
 }
 
 
 /* =====================================================
-   GENEROVÁNÍ TIPŮ
+   DETAIL ZÁPASU
    ===================================================== */
 
-function generateTicket(){
+async function openMatch(index){
 
-  if(!matches.length){
+const match=matches[index];
 
-    alert(
-      "Nejdříve načti nadcházející zápasy v sekci Zápasy."
-    );
+if(!match)return;
 
-    loadMatches();
+const n=
+normalizeMatch(match);
 
-    return;
-  }
+showScreen("detail");
 
-  const count =
-    parseInt(
-      document
-        .getElementById("tipCount")
-        .value
-    );
+const box=
+document.getElementById(
+"detailContent"
+);
 
-  const minOdds =
-    parseFloat(
-      document
-        .getElementById("minOdds")
-        .value
-    );
+box.innerHTML=`
 
-  const maxOdds =
-    parseFloat(
-      document
-        .getElementById("maxOdds")
-        .value
-    );
+<div class="detail-head">
 
-  const stake =
-    parseFloat(
-      document
-        .getElementById("stake")
-        .value
-    );
+<div class="detail-teams">
 
-  if(
-    isNaN(minOdds) ||
-    isNaN(maxOdds) ||
-    minOdds <= 1 ||
-    maxOdds < minOdds
-  ){
+<div class="detail-team">
+${escapeHtml(n.home)}
+</div>
 
-    alert(
-      "Zkontroluj rozsah kurzů."
-    );
+<div class="detail-vs">
+${n.sport==="football"
+?"⚽"
+:"🏒"}
+<br>
+VS
+</div>
 
-    return;
-  }
+<div class="detail-team">
+${escapeHtml(n.away)}
+</div>
 
-  if(
-    isNaN(stake) ||
-    stake <= 0
-  ){
+</div>
 
-    alert(
-      "Zadej platný vklad."
-    );
+<div class="detail-time">
+📅 ${escapeHtml(formatDateTime(match))}
+</div>
 
-    return;
-  }
+<div class="tags">
 
-  const candidates =
-    buildCandidates(
-      matches,
-      minOdds,
-      maxOdds
-    );
+<span class="tag">
+${escapeHtml(n.league)}
+</span>
 
-  if(candidates.length < count){
+<span class="tag green">
+${n.sport==="football"
+?"FOTBAL"
+:"HOKEJ"}
+</span>
 
-    alert(
-      "Není dost vhodných tipů pro zadané podmínky. " +
-      "Zkus snížit počet tipů nebo upravit kurz."
-    );
+</div>
 
-    return;
-  }
+</div>
 
-  /*
-    Seřazení podle confidence
-    a následné lehké promíchání.
-  */
+<div class="empty">
 
-  candidates.sort(
-    (a,b)=>
-      b.confidence -
-      a.confidence
-  );
+<div class="loader"></div>
 
-  const topCandidates =
-    candidates.slice(
-      0,
-      Math.min(
-        candidates.length,
-        count * 3
-      )
-    );
+Načítám detailní analýzu...
 
-  shuffle(topCandidates);
+</div>
 
-  currentTicket =
-    topCandidates.slice(
-      0,
-      count
-    );
+`;
 
-  renderTicket(
-    currentTicket,
-    stake
-  );
+try{
 
-  saveTicket(
-    currentTicket,
-    stake
-  );
+if(n.sport==="football"){
+
+await renderFootballDetail(n);
+
+}else{
+
+await renderHockeyDetail(n);
+
+}
+
+}catch(error){
+
+box.innerHTML+=`
+
+<div class="card">
+
+<h3>⚠️ Některá data nejsou dostupná</h3>
+
+<p class="pick-note">
+${escapeHtml(error.message)}
+</p>
+
+</div>
+
+`;
+
+}
+
 }
 
 
 /* =====================================================
-   VYTVOŘENÍ KANDIDÁTŮ
+   FOTBAL DETAIL
    ===================================================== */
 
-function buildCandidates(
-  list,
-  minOdds,
-  maxOdds
+async function renderFootballDetail(n){
+
+const box=
+document.getElementById(
+"detailContent"
+);
+
+const id=n.id;
+
+const results=
+await Promise.allSettled([
+
+apiRequest(
+FOOTBALL_API,
+"/predictions?fixture="+id
+),
+
+apiRequest(
+FOOTBALL_API,
+"/fixtures/headtohead?h2h="+
+n.raw.teams.home.id+
+"-"+
+n.raw.teams.away.id+
+"&last=5"
+),
+
+apiRequest(
+FOOTBALL_API,
+"/injuries?fixture="+id
+),
+
+apiRequest(
+FOOTBALL_API,
+"/odds?fixture="+id
+)
+
+]);
+
+const prediction=
+results[0].status==="fulfilled"
+? results[0].value
+:null;
+
+const h2h=
+results[1].status==="fulfilled"
+? results[1].value
+:null;
+
+const injuries=
+results[2].status==="fulfilled"
+? results[2].value
+:null;
+
+const odds=
+results[3].status==="fulfilled"
+? results[3].value
+:null;
+
+const p=
+prediction?.response?.[0];
+
+let homePercent="—";
+let drawPercent="—";
+let awayPercent="—";
+let advice="Data predikce nejsou k dispozici.";
+
+if(p){
+
+homePercent=
+p.predictions?.percent?.home || "—";
+
+drawPercent=
+p.predictions?.percent?.draw || "—";
+
+awayPercent=
+p.predictions?.percent?.away || "—";
+
+advice=
+p.predictions?.advice ||
+"Bez doporučení";
+
+}
+
+const h2hMatches=
+Array.isArray(h2h?.response)
+?h2h.response
+:[];
+
+const injuryList=
+Array.isArray(injuries?.response)
+?injuries.response
+:[];
+
+const bookmakerData=
+extractOdds(odds);
+
+box.innerHTML=`
+
+<div class="detail-head">
+
+<div class="detail-teams">
+
+<div class="detail-team">
+${escapeHtml(n.home)}
+</div>
+
+<div class="detail-vs">
+⚽
+<br>
+VS
+</div>
+
+<div class="detail-team">
+${escapeHtml(n.away)}
+</div>
+
+</div>
+
+<div class="detail-time">
+📅 ${escapeHtml(formatDateTime(n.raw))}
+</div>
+
+</div>
+
+
+<div class="section-title">
+🤖 Predikce API
+</div>
+
+<div class="card">
+
+<div class="stat-grid">
+
+<div class="stat">
+
+<small>DOMÁCÍ</small>
+
+<strong>
+${escapeHtml(homePercent)}
+</strong>
+
+</div>
+
+<div class="stat">
+
+<small>REMÍZA</small>
+
+<strong>
+${escapeHtml(drawPercent)}
+</strong>
+
+</div>
+
+<div class="stat">
+
+<small>HOSTÉ</small>
+
+<strong>
+${escapeHtml(awayPercent)}
+</strong>
+
+</div>
+
+<div class="stat">
+
+<small>DOPORUČENÍ</small>
+
+<strong>
+${escapeHtml(advice)}
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+📊 Srovnání
+</div>
+
+<div class="card">
+
+${compareBar(
+"Domácí",
+homePercent,
+"Hosté",
+awayPercent
+)}
+
+<p class="pick-note">
+Predikce API používá více algoritmů včetně
+formy, H2H, statistik a dalších dostupných dat.
+Kurzy bookmakerů nejsou použity pro vytvoření
+této predikce.
+</p>
+
+</div>
+
+
+<div class="section-title">
+📜 Posledních 5 H2H
+</div>
+
+<div class="card">
+
+${
+h2hMatches.length
+?h2hMatches.map(x=>{
+
+const a=
+x.teams?.home?.name || "";
+
+const b=
+x.teams?.away?.name || "";
+
+const gh=
+x.goals?.home;
+
+const ga=
+x.goals?.away;
+
+return`
+
+<div class="history-item">
+
+<strong>
+${escapeHtml(a)}
+ – 
+${escapeHtml(b)}
+</strong>
+
+<p class="pick-note">
+Výsledek:
+${gh===null||gh===undefined
+?"—"
+:gh+" : "+ga}
+</p>
+
+</div>
+
+`;
+
+}).join("")
+:"H2H data nejsou dostupná."
+
+}
+
+</div>
+
+
+<div class="section-title">
+🚑 Absence
+</div>
+
+<div class="card">
+
+${
+injuryList.length
+?injuryList
+.slice(0,30)
+.map(x=>`
+
+<div class="history-item">
+
+<strong>
+${escapeHtml(
+x.player?.name ||
+"Neznámý hráč"
+)}
+</strong>
+
+<p class="pick-note">
+
+${escapeHtml(
+x.type ||
+"Absence"
+)}
+
+ · 
+
+${escapeHtml(
+x.reason ||
+x.player?.reason ||
+""
+)}
+
+</p>
+
+</div>
+
+`).join("")
+:"Žádné dostupné informace o absencích."
+
+}
+
+</div>
+
+
+<div class="section-title">
+💰 Skutečně načtené kurzy
+</div>
+
+<div class="card">
+
+${
+bookmakerData.length
+?renderOdds(bookmakerData)
+:"Pro tento zápas nebyly přes API vráceny kurzy."
+}
+
+</div>
+
+
+<div class="card">
+
+<p class="pick-note">
+
+⚠️ Analýza je pomoc pro rozhodování, ne záruka
+výsledku. Pokud API pro konkrétní zápas neposkytne
+některá data, aplikace je nebude nahrazovat
+vymyšlenými hodnotami.
+
+</p>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   HOKEJ DETAIL
+   ===================================================== */
+
+async function renderHockeyDetail(n){
+
+const box=
+document.getElementById(
+"detailContent"
+);
+
+const id=n.id;
+
+const results=
+await Promise.allSettled([
+
+apiRequest(
+HOCKEY_API,
+"/games?id="+id
+),
+
+apiRequest(
+HOCKEY_API,
+"/odds?game="+id
+)
+
+]);
+
+const gameData=
+results[0].status==="fulfilled"
+?results[0].value
+:null;
+
+const odds=
+results[1].status==="fulfilled"
+?results[1].value
+:null;
+
+const game=
+gameData?.response?.[0];
+
+let homeScore="—";
+let awayScore="—";
+
+if(game?.scores){
+
+homeScore=
+game.scores.home?.goals ??
+game.scores.home ??
+"—";
+
+awayScore=
+game.scores.away?.goals ??
+game.scores.away ??
+"—";
+
+}
+
+const bookmakerData=
+extractHockeyOdds(odds);
+
+box.innerHTML=`
+
+<div class="detail-head">
+
+<div class="detail-teams">
+
+<div class="detail-team">
+${escapeHtml(n.home)}
+</div>
+
+<div class="detail-vs">
+🏒
+<br>
+VS
+</div>
+
+<div class="detail-team">
+${escapeHtml(n.away)}
+</div>
+
+</div>
+
+<div class="detail-time">
+📅 ${escapeHtml(formatDateTime(n.raw))}
+</div>
+
+</div>
+
+
+<div class="section-title">
+📊 Informace o zápase
+</div>
+
+<div class="card">
+
+<div class="stat-grid">
+
+<div class="stat">
+
+<small>DOMÁCÍ</small>
+
+<strong>
+${homeScore}
+</strong>
+
+</div>
+
+<div class="stat">
+
+<small>HOSTÉ</small>
+
+<strong>
+${awayScore}
+</strong>
+
+</div>
+
+<div class="stat">
+
+<small>LIGA</small>
+
+<strong>
+${escapeHtml(n.league)}
+</strong>
+
+</div>
+
+<div class="stat">
+
+<small>STAV</small>
+
+<strong>
+${escapeHtml(n.status)}
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+💰 Skutečně načtené kurzy
+</div>
+
+<div class="card">
+
+${
+bookmakerData.length
+?renderOdds(bookmakerData)
+:"Pro tento zápas nebyly přes API vráceny kurzy."
+}
+
+</div>
+
+
+<div class="card">
+
+<p class="pick-note">
+
+⚠️ Hokej používá samostatné API-Hockey.
+Dostupnost statistik, predikcí a kurzů se může
+lišit podle konkrétní ligy a zápasu.
+
+</p>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   ODDS
+   ===================================================== */
+
+function extractOdds(data){
+
+const result=[];
+
+if(!data?.response)return result;
+
+data.response.forEach(item=>{
+
+const bookmakers=
+item.bookmakers || [];
+
+bookmakers.forEach(book=>{
+
+const bets=
+book.bets || [];
+
+bets.forEach(bet=>{
+
+const values=
+bet.values || [];
+
+values.forEach(v=>{
+
+if(v.value &&
+v.odd){
+
+result.push({
+
+bookmaker:
+book.name || "Bookmaker",
+
+market:
+bet.name || "Trh",
+
+value:
+v.value,
+
+odd:
+Number(v.odd)
+
+});
+
+}
+
+});
+
+});
+
+});
+
+});
+
+return result;
+
+}
+
+
+function extractHockeyOdds(data){
+
+const result=[];
+
+if(!data?.response)return result;
+
+data.response.forEach(item=>{
+
+const bookmakers=
+item.bookmakers || [];
+
+bookmakers.forEach(book=>{
+
+const bets=
+book.bets || [];
+
+bets.forEach(bet=>{
+
+const values=
+bet.values || [];
+
+values.forEach(v=>{
+
+if(v.value && v.odd){
+
+result.push({
+
+bookmaker:
+book.name || "Bookmaker",
+
+market:
+bet.name || "Trh",
+
+value:
+v.value,
+
+odd:
+Number(v.odd)
+
+});
+
+}
+
+});
+
+});
+
+});
+
+});
+
+return result;
+
+}
+
+
+function renderOdds(odds){
+
+return odds
+.slice(0,80)
+.map(o=>`
+
+<div class="history-item">
+
+<div class="history-head">
+
+<strong>
+${escapeHtml(o.bookmaker)}
+</strong>
+
+<span class="tag green">
+${Number(o.odd).toFixed(2)}
+</span>
+
+</div>
+
+<p class="pick-note">
+
+${escapeHtml(o.market)}
+:
+${escapeHtml(o.value)}
+
+</p>
+
+</div>
+
+`)
+.join("");
+
+}
+
+
+/* =====================================================
+   BOOKMAKERS
+   ===================================================== */
+
+async function loadBookmakers(){
+
+if(!getApiKey()){
+
+alert(
+"Nejdříve vlož API klíč."
+);
+
+showScreen("settings");
+
+return;
+
+}
+
+const info=
+document.getElementById(
+"bookmakerInfo"
+);
+
+const list=
+document.getElementById(
+"bookmakerList"
+);
+
+info.textContent=
+"Načítám dostupné bookmakery...";
+
+list.innerHTML="";
+
+try{
+
+const base=
+currentSport==="football"
+?FOOTBALL_API
+:HOCKEY_API;
+
+const data=
+await apiRequest(
+base,
+"/odds/bookmakers"
+);
+
+const bookmakers=
+Array.isArray(data.response)
+?data.response
+:[];
+
+if(!bookmakers.length){
+
+info.textContent=
+"API nevrátilo žádné bookmakery.";
+
+return;
+
+}
+
+const wanted=
+bookmakers.filter(b=>
+/tipsport|chance/i.test(
+b.name || ""
+)
+);
+
+info.textContent=
+"API vrátilo "+
+bookmakers.length+
+" bookmakerů.";
+
+list.innerHTML=`
+
+<div class="tags">
+
+${
+wanted.length
+?wanted.map(b=>`
+
+<span class="tag green">
+
+✅ ${escapeHtml(b.name)}
+(ID ${b.id})
+
+</span>
+
+`).join("")
+:`
+
+<span class="tag yellow">
+⚠️ Chance/Tipsport nebyly v seznamu nalezeny
+</span>
+
+`}
+
+</div>
+
+<div class="card">
+
+<p class="pick-note">
+
+Dostupnost konkrétní sázkovky se může lišit
+podle sportu, ligy a konkrétního zápasu.
+Proto aplikace vždy zobrazuje pouze kurzy,
+které skutečně obdrží z API.
+
+</p>
+
+</div>
+
+`;
+
+}catch(error){
+
+info.textContent=
+"❌ "+error.message;
+
+}
+
+}
+
+
+/* =====================================================
+   GENERÁTOR TIKETU
+   ===================================================== */
+
+async function generateTicket(){
+
+if(!getApiKey()){
+
+showScreen("settings");
+
+alert(
+"Nejdříve vlož API klíč."
+);
+
+return;
+
+}
+
+if(!matches.length){
+
+alert(
+"Nejdříve načti nadcházející zápasy."
+);
+
+await loadMatches();
+
+return;
+
+}
+
+const count=
+parseInt(
+document.getElementById(
+"tipCount"
+).value
+);
+
+const minOdds=
+parseFloat(
+document.getElementById(
+"minOdds"
+).value
+);
+
+const maxOdds=
+parseFloat(
+document.getElementById(
+"maxOdds"
+).value
+);
+
+const stake=
+parseFloat(
+document.getElementById(
+"stake"
+).value
+);
+
+if(
+isNaN(minOdds) ||
+isNaN(maxOdds) ||
+minOdds<=1 ||
+maxOdds<minOdds
 ){
 
-  const result = [];
+alert(
+"Zkontroluj rozsah kurzů."
+);
 
-  list.forEach(match=>{
+return;
 
-    const home =
-      match.teams?.home?.name;
+}
 
-    const away =
-      match.teams?.away?.name;
+if(isNaN(stake)||stake<=0){
 
-    if(!home || !away){
-      return;
-    }
+alert(
+"Zadej platný vklad."
+);
 
-    const status =
-      match.fixture?.status?.short;
+return;
 
-    /*
-      Pouze zápasy, které ještě nezačaly.
-    */
+}
 
-    if(
-      status !== "NS" &&
-      status !== "TBD" &&
-      status !== "PST"
-    ){
+const button=
+document.getElementById(
+"generateBtn"
+);
 
-      return;
-    }
+button.disabled=true;
 
-    /*
-      Dodatečná kontrola času.
-    */
+button.textContent=
+"⏳ Analyzuji...";
 
-    const matchDate =
-      match.fixture?.date;
+try{
 
-    if(!matchDate){
-      return;
-    }
+const candidates=
+await buildCandidates(
+matches,
+minOdds,
+maxOdds
+);
 
-    const timestamp =
-      new Date(matchDate).getTime();
+if(candidates.length<count){
 
-    if(
-      isNaN(timestamp) ||
-      timestamp <= Date.now()
-    ){
+alert(
+"Není dost vhodných ověřených tipů. "+
+"Zkus snížit počet tipů nebo rozšířit kurz."
+);
 
-      return;
-    }
+return;
 
-    /*
-      Tento prototyp nemá bookmaker API.
-      Proto jsou kurzy pouze MODELové.
-      Pro skutečné kurzy bude později
-      potřeba odds endpoint.
-    */
+}
 
-    const hash =
-      simpleHash(
-        home +
-        "|" +
-        away
-      );
+candidates.sort(
+(a,b)=>
+b.score-a.score
+);
 
-    const confidence =
-      68 +
-      (hash % 20);
+currentTicket=
+candidates.slice(0,count);
 
-    let type;
-    let odd;
+renderTicket(
+currentTicket,
+stake
+);
 
-    if(currentMode === "safe"){
+saveTicket(
+currentTicket,
+stake
+);
 
-      const options = [
+}catch(error){
 
-        "Více než 1,5 gólu",
+alert(
+"Generování se nepodařilo: "+
+error.message
+);
 
-        "Méně než 4,5 gólu",
+}finally{
 
-        "1X"
+button.disabled=false;
 
-      ];
+button.textContent=
+"🎯 Vygenerovat tiket";
 
-      type =
-        options[
-          hash %
-          options.length
-        ];
+}
 
-      odd =
-        1.20 +
-        ((hash % 51) / 100);
-
-    }
-
-    else if(currentMode === "normal"){
-
-      const options = [
-
-        "Více než 1,5 gólu",
-
-        "1X",
-
-        "X2",
-
-        "Oba týmy dají gól"
-
-      ];
-
-      type =
-        options[
-          hash %
-          options.length
-        ];
-
-      odd =
-        1.35 +
-        ((hash % 76) / 100);
-
-    }
-
-    else{
-
-      const options = [
-
-        "Více než 2,5 gólu",
-
-        "Oba týmy dají gól",
-
-        "Domácí vyhrají",
-
-        "Hosté vyhrají"
-
-      ];
-
-      type =
-        options[
-          hash %
-          options.length
-        ];
-
-      odd =
-        1.70 +
-        ((hash % 231) / 100);
-
-    }
-
-    odd =
-      Math.round(
-        odd * 100
-      ) / 100;
-
-    if(
-      odd < minOdds ||
-      odd > maxOdds
-    ){
-
-      return;
-    }
-
-    result.push({
-
-      fixtureId:
-        match.fixture.id,
-
-      date:
-        match.fixture.date,
-
-      league:
-        match.league?.name ||
-        "Fotbal",
-
-      home,
-
-      away,
-
-      type,
-
-      odd,
-
-      confidence
-
-    });
-
-  });
-
-  return result;
 }
 
 
 /* =====================================================
-   VYKRESLENÍ TIKETU
+   KANDIDÁTI
+   ===================================================== */
+
+async function buildCandidates(
+list,
+minOdds,
+maxOdds
+){
+
+const result=[];
+
+for(
+const match of list.slice(0,25)
+){
+
+const n=
+normalizeMatch(match);
+
+try{
+
+let oddsData;
+
+if(n.sport==="football"){
+
+oddsData=
+await apiRequest(
+FOOTBALL_API,
+"/odds?fixture="+n.id
+);
+
+}else{
+
+oddsData=
+await apiRequest(
+HOCKEY_API,
+"/odds?game="+n.id
+);
+
+}
+
+const odds=
+n.sport==="football"
+?extractOdds(oddsData)
+:extractHockeyOdds(oddsData);
+
+const filtered=
+odds.filter(o=>
+o.odd>=minOdds &&
+o.odd<=maxOdds
+);
+
+if(!filtered.length)continue;
+
+let analysisScore=50;
+
+let advice="";
+
+if(n.sport==="football"){
+
+try{
+
+const prediction=
+await apiRequest(
+FOOTBALL_API,
+"/predictions?fixture="+
+n.id
+);
+
+const p=
+prediction?.response?.[0];
+
+if(p){
+
+const percent=
+p.predictions?.percent || {};
+
+const values=[
+parsePercent(percent.home),
+parsePercent(percent.draw),
+parsePercent(percent.away)
+]
+.filter(v=>v!==null);
+
+if(values.length){
+
+analysisScore=
+Math.max(...values);
+
+}
+
+advice=
+p.predictions?.advice ||
+"Predikce dostupná";
+
+}
+
+}catch(e){
+
+advice=
+"Predikce není dostupná";
+
+}
+
+}else{
+
+analysisScore=50;
+
+advice=
+"Kurzy API-Hockey";
+
+}
+
+const best=
+filtered
+.slice()
+.sort((a,b)=>
+b.odd-a.odd
+)[0];
+
+let value="";
+
+if(analysisScore){
+
+const implied=
+100/best.odd;
+
+const edge=
+analysisScore-implied;
+
+if(edge>=7){
+
+value="🟢 zajímavé";
+
+}else if(edge>=2){
+
+value="🟡 mírná výhoda";
+
+}else{
+
+value="⚪ bez výrazné výhody";
+
+}
+
+}
+
+result.push({
+
+fixtureId:n.id,
+
+league:n.league,
+
+home:n.home,
+
+away:n.away,
+
+type:
+best.market+
+" – "+
+best.value,
+
+odd:best.odd,
+
+confidence:
+Math.round(analysisScore),
+
+score:
+analysisScore,
+
+advice,
+
+value,
+
+sport:n.sport,
+
+matchDate:
+formatDateTime(match)
+
+});
+
+}catch(error){
+
+console.log(
+"Tip přeskočen:",
+error
+);
+
+}
+
+}
+
+return result;
+
+}
+
+
+/* =====================================================
+   TICKET
    ===================================================== */
 
 function renderTicket(
-  ticket,
-  stake
+ticket,
+stake
 ){
 
-  const result =
-    document.getElementById(
-      "ticketResult"
-    );
+const result=
+document.getElementById(
+"ticketResult"
+);
 
-  if(!ticket.length){
+if(!ticket.length){
 
-    result.innerHTML =
-      `<div class="empty">
-        Žádný tiket.
-      </div>`;
+result.innerHTML=
+`<div class="empty">
+Žádný ověřený tiket.
+</div>`;
 
-    return;
-  }
+return;
 
-  const totalOdds =
-    ticket.reduce(
-      (sum,item)=>
-        sum * item.odd,
-      1
-    );
+}
 
-  const win =
-    stake *
-    totalOdds;
+const totalOdds=
+ticket.reduce(
+(sum,item)=>
+sum*item.odd,
+1
+);
 
-  result.innerHTML = `
+const win=
+stake*totalOdds;
 
-    <div class="section-title">
-      Vygenerovaný tiket
-    </div>
+result.innerHTML=`
 
-    <div class="ticket-summary">
+<div class="section-title">
+🎫 Vygenerovaný tiket
+</div>
 
-      <div class="summary">
+<div class="ticket-summary">
 
-        <small>TIPŮ</small>
+<div class="summary">
 
-        <strong>
-          ${ticket.length}
-        </strong>
+<small>TIPŮ</small>
 
-      </div>
+<strong>
+${ticket.length}
+</strong>
 
-      <div class="summary">
+</div>
 
-        <small>KURZ</small>
+<div class="summary">
 
-        <strong>
-          ${totalOdds.toFixed(2)}
-        </strong>
+<small>CELKOVÝ KURZ</small>
 
-      </div>
+<strong>
+${totalOdds.toFixed(2)}
+</strong>
 
-      <div class="summary">
+</div>
 
-        <small>VÝHRA</small>
+<div class="summary">
 
-        <strong>
-          ${win.toFixed(0)} Kč
-        </strong>
+<small>MOŽNÁ VÝHRA</small>
 
-      </div>
+<strong>
+${win.toFixed(0)} Kč
+</strong>
 
-    </div>
+</div>
 
-    ${ticket.map(
-      (pick,index)=>`
+</div>
 
-      <div class="pick">
+${ticket.map((pick,index)=>{
 
-        <div class="pick-top">
+const implied=
+100/pick.odd;
 
-          <div>
+const edge=
+pick.confidence-implied;
 
-            <div class="pick-number">
-              TIP ${index + 1}
-            </div>
+return`
 
-            <h3>
+<div class="pick">
 
-              ${escapeHtml(pick.home)}
-              –
-              ${escapeHtml(pick.away)}
+<div class="pick-top">
 
-            </h3>
+<div>
 
-          </div>
+<div class="pick-number">
+TIP ${index+1}
+</div>
 
-          <div class="pick-odd">
+<h3>
+${escapeHtml(pick.home)}
+ –
+${escapeHtml(pick.away)}
+</h3>
 
-            ${pick.odd.toFixed(2)}
+</div>
 
-          </div>
+<div class="pick-odd">
+${pick.odd.toFixed(2)}
+</div>
 
-        </div>
+</div>
 
-        <div class="tags">
+<div class="tags">
 
-          <span class="tag">
+<span class="tag">
+${pick.sport==="football"
+?"⚽"
+:"🏒"}
+${escapeHtml(pick.league)}
+</span>
 
-            ⚽ ${
-              escapeHtml(
-                pick.league
-              )
-            }
+<span class="tag green">
+${escapeHtml(pick.type)}
+</span>
 
-          </span>
+<span class="tag yellow">
+${pick.confidence}%
+</span>
 
-          <span class="tag green">
+</div>
 
-            ${
-              escapeHtml(
-                pick.type
-              )
-            }
+<div class="confidence">
 
-          </span>
+<div style="width:${Math.min(
+100,
+Math.max(0,pick.confidence)
+)}%"></div>
 
-          <span class="tag yellow">
+</div>
 
-            Skóre ${
-              pick.confidence
-            }
+<div class="value-box">
 
-          </span>
+<strong>
+${escapeHtml(pick.value)}
+</strong>
 
-          <span class="tag">
+<br>
 
-            📅 ${
-              formatFullMatchDate(
-                pick.date
-              )
-            }
+Kurz ${pick.odd.toFixed(2)}
+→ implikovaná pravděpodobnost
+${implied.toFixed(1)}%
 
-          </span>
+<br>
 
-          <span class="tag">
+Náš datový signál:
+${pick.confidence}%
 
-            Odhad ${
-              pick.confidence
-            }%
+<br>
 
-          </span>
+Rozdíl:
+${edge>=0?"+":""}${edge.toFixed(1)}
+procentního bodu
 
-        </div>
+</div>
 
-        <div class="confidence">
+<p class="pick-note">
 
-          <div
-            style="width:${pick.confidence}%">
-          </div>
+📅 ${escapeHtml(pick.matchDate)}
 
-        </div>
+<br>
 
-        <p class="pick-note">
+ℹ️ ${escapeHtml(pick.advice)}
 
-          💡 Zápas je podle načtených
-          dat stále před začátkem.
-          Tip je vybrán podle nastaveného režimu
-          a modelového hodnocení.
+</p>
 
-        </p>
+<div class="actions">
 
-      </div>
+<button class="btn btn-blue"
+onclick="openTicketMatch(${index})">
 
-    `).join("")}
+🔎 Podrobná analýza
 
-    <div class="card">
+</button>
 
-      <p class="pick-note">
+</div>
 
-        ⚠️ Důležité: API-Football endpoint
-        fixtures neposkytuje skutečné bookmaker
-        kurzy v této verzi aplikace.
-        Zobrazené kurzy jsou proto modelové.
-        Pro skutečné sázkové kurzy bude potřeba
-        připojit odds API.
+</div>
 
-      </p>
+`;
 
-    </div>
+}).join("")}
 
-  `;
+<div class="card">
 
-  showScreen("ticket");
+<p class="pick-note">
+
+⚠️ Kurz je považován za skutečný pouze tehdy,
+pokud ho vrátil odds endpoint API.
+Aplikace sama žádný kurz nevymýšlí.
+
+</p>
+
+</div>
+
+`;
+
+showScreen("ticket");
+
+}
+
+
+/* =====================================================
+   DETAIL Z TIKETU
+   ===================================================== */
+
+async function openTicketMatch(index){
+
+const pick=
+currentTicket[index];
+
+if(!pick)return;
+
+const found=
+matches.find(m=>
+normalizeMatch(m).id===
+pick.fixtureId
+);
+
+if(!found){
+
+alert(
+"Zápas už není v aktuálně načtených datech."
+);
+
+return;
+
+}
+
+const originalIndex=
+matches.indexOf(found);
+
+await openMatch(originalIndex);
+
+}
+
+
+/* =====================================================
+   PERCENT
+   ===================================================== */
+
+function parsePercent(value){
+
+if(value===null||value===undefined)
+return null;
+
+const n=
+parseFloat(
+String(value).replace("%","")
+);
+
+return isNaN(n)?null:n;
+
+}
+
+
+/* =====================================================
+   COMPARE BAR
+   ===================================================== */
+
+function compareBar(
+nameA,
+percentA,
+nameB,
+percentB
+){
+
+const a=
+parsePercent(percentA)||0;
+
+const b=
+parsePercent(percentB)||0;
+
+return`
+
+<div class="compare">
+
+<div class="compare-name">
+${escapeHtml(nameA)}
+</div>
+
+<div class="compare-center">
+${a.toFixed(0)}%
+</div>
+
+<div class="compare-name">
+${escapeHtml(nameB)}
+</div>
+
+</div>
+
+<div class="compare">
+
+<div class="compare-bar">
+<div style="width:${Math.min(100,a)}%"></div>
+</div>
+
+<div></div>
+
+<div class="compare-bar">
+<div style="width:${Math.min(100,b)}%"></div>
+</div>
+
+</div>
+
+`;
+
 }
 
 
@@ -2122,171 +3643,170 @@ function renderTicket(
    ===================================================== */
 
 function saveTicket(
-  ticket,
-  stake
+ticket,
+stake
 ){
 
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "ticket_history"
-      ) || "[]"
-    );
+const history=
+JSON.parse(
+localStorage.getItem(
+"ticket_history"
+)||"[]"
+);
 
-  const totalOdds =
-    ticket.reduce(
-      (sum,item)=>
-        sum * item.odd,
-      1
-    );
+const totalOdds=
+ticket.reduce(
+(sum,item)=>
+sum*item.odd,
+1
+);
 
-  history.unshift({
+history.unshift({
 
-    date:
-      new Date()
-        .toLocaleString(
-          "cs-CZ"
-        ),
+date:
+new Date()
+.toLocaleString("cs-CZ"),
 
-    mode:
-      currentMode,
+sport:currentSport,
 
-    count:
-      ticket.length,
+mode:currentMode,
 
-    odds:
-      Number(
-        totalOdds.toFixed(2)
-      ),
+count:ticket.length,
 
-    stake,
+odds:
+Number(
+totalOdds.toFixed(2)
+),
 
-    win:
-      Number(
-        (
-          stake *
-          totalOdds
-        ).toFixed(2)
-      ),
+stake,
 
-    picks:
-      ticket.map(
-        item=>({
+win:
+Number(
+(stake*totalOdds)
+.toFixed(2)
+),
 
-          home:item.home,
+picks:
+ticket.map(item=>({
 
-          away:item.away,
+home:item.home,
 
-          type:item.type,
+away:item.away,
 
-          odd:item.odd,
+type:item.type,
 
-          date:item.date
+odd:item.odd
 
-        })
-      )
+}))
 
-  });
+});
 
-  localStorage.setItem(
-    "ticket_history",
-    JSON.stringify(
-      history.slice(0,50)
-    )
-  );
+localStorage.setItem(
+"ticket_history",
+JSON.stringify(
+history.slice(0,50)
+)
+);
 
-  renderHistory();
+renderHistory();
+
 }
 
 
 function renderHistory(){
 
-  const list =
-    document.getElementById(
-      "historyList"
-    );
+const list=
+document.getElementById(
+"historyList"
+);
 
-  const history =
-    JSON.parse(
-      localStorage.getItem(
-        "ticket_history"
-      ) || "[]"
-    );
+const history=
+JSON.parse(
+localStorage.getItem(
+"ticket_history"
+)||"[]"
+);
 
-  if(!history.length){
+if(!history.length){
 
-    list.innerHTML = `
+list.innerHTML=`
 
-      <div class="empty">
+<div class="empty">
 
-        Zde se budou ukládat
-        vytvořené tikety.
+Zde se budou ukládat vytvořené tikety.
 
-      </div>
+</div>
 
-    `;
+`;
 
-    return;
-  }
+return;
 
-  list.innerHTML =
-    history
-      .map(
-        (item,index)=>`
+}
 
-      <div class="history-item">
+list.innerHTML=
+history.map((item,index)=>`
 
-        <div class="history-head">
+<div class="history-item">
 
-          <strong>
+<div class="history-head">
 
-            🎫 Tiket ${index + 1}
+<strong>
+🎫 Tiket ${index+1}
+</strong>
 
-          </strong>
+<span class="history-date">
+${escapeHtml(item.date)}
+</span>
 
-          <span class="history-date">
+</div>
 
-            ${escapeHtml(
-              item.date
-            )}
+<p class="pick-note">
 
-          </span>
+${item.sport==="hockey"
+?"🏒 Hokej"
+:"⚽ Fotbal"}
 
-        </div>
+ ·
 
-        <p class="pick-note">
+${item.count} tipů
 
-          ${item.count} tipů ·
-          kurz ${item.odds} ·
-          vklad ${item.stake} Kč ·
-          výhra ${item.win} Kč
+ ·
 
-        </p>
+kurz ${item.odds}
 
-      </div>
+ ·
 
-    `
-      )
-      .join("");
+vklad ${item.stake} Kč
+
+ ·
+
+možná výhra ${item.win} Kč
+
+</p>
+
+</div>
+
+`).join("");
+
 }
 
 
 function clearHistory(){
 
-  if(
-    !confirm(
-      "Opravdu chceš smazat celou historii?"
-    )
-  ){
+if(!confirm(
+"Opravdu chceš smazat celou historii?"
+)){
 
-    return;
-  }
+return;
 
-  localStorage.removeItem(
-    "ticket_history"
-  );
+}
 
-  renderHistory();
+localStorage.removeItem(
+"ticket_history"
+);
+
+renderHistory();
+
 }
 
 
@@ -2294,135 +3814,48 @@ function clearHistory(){
    POMOCNÉ FUNKCE
    ===================================================== */
 
-function shuffle(array){
-
-  for(
-    let i =
-      array.length - 1;
-    i > 0;
-    i--
-  ){
-
-    const j =
-      Math.floor(
-        Math.random() *
-        (i + 1)
-      );
-
-    [
-      array[i],
-      array[j]
-    ] =
-    [
-      array[j],
-      array[i]
-    ];
-
-  }
-
-  return array;
-}
-
-
-function simpleHash(text){
-
-  let hash = 0;
-
-  for(
-    let i=0;
-    i<text.length;
-    i++
-  ){
-
-    hash =
-      (
-        (hash << 5) -
-        hash
-      ) +
-      text.charCodeAt(i);
-
-    hash |= 0;
-
-  }
-
-  return Math.abs(hash);
-}
-
-
 function escapeHtml(value){
 
-  return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+return String(value ?? "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 
 /* =====================================================
-   START APLIKACE
+   START
    ===================================================== */
 
 function init(){
 
-  const key =
-    getApiKey();
+const key=getApiKey();
 
-  if(key){
+if(key){
 
-    document
-      .getElementById(
-        "apiKey"
-      )
-      .value =
-      key;
+document.getElementById(
+"apiKey"
+).value=key;
 
-    document
-      .getElementById(
-        "connectionInfo"
-      )
-      .innerHTML =
-      "✅ API klíč je uložený. " +
-      "Můžeš načíst živá data.";
-
-  }
-
-  updateApiStatus();
-
-  renderHistory();
+document.getElementById(
+"connectionInfo"
+).textContent=
+"✅ API klíč je uložený.";
 
 }
 
+updateApiStatus();
 
-/* =====================================================
-   SPUŠTĚNÍ
-   ===================================================== */
+renderHistory();
+
+}
 
 document.addEventListener(
-  "DOMContentLoaded",
-  init
+"DOMContentLoaded",
+init
 );
 
 </script>
