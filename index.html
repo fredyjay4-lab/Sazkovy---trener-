@@ -1128,17 +1128,20 @@ async function loadMatches(){
         .toISOString()
         .slice(0,10);
 
-    const data =
-      await apiRequest(
-        "/fixtures?date=" + today
-      );
-
+    
+   const data = await apiRequest(
+    "/fixtures?date=" + today + "&status=NS"
+);
     matches =
-      Array.isArray(data.response)
-        ? data.response
-        : [];
+  Array.isArray(data.response)
+    ? data.response.filter(match =>
+        match.fixture &&
+        match.fixture.status &&
+        match.fixture.status.short === "NS"
+      )
+    : [];
 
-    renderMatches();
+renderMatches();
 
     document.getElementById("homeMatchInfo")
       .textContent =
